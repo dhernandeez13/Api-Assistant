@@ -18,8 +18,26 @@ const Profile = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Mi Perfil</h2>
         <div className="mb-4">
           <span className="font-semibold">Email:</span>
-          <div className="mt-1 text-gray-300">{currentUser?.email}</div>
+          <div className="mt-1 text-gray-300">{currentUser?.email || '-'}</div>
         </div>
+        <div className="mb-4">
+          <span className="font-semibold">Nombre de usuario:</span>
+          <div className="mt-1 text-gray-300">{currentUser?.displayName || '-'}</div>
+        </div>
+        <div className="mb-4">
+          <span className="font-semibold">Proveedor:</span>
+          <div className="mt-1 text-gray-300">{currentUser?.providerData?.map((p) => p.providerId).join(', ') || '-'}</div>
+        </div>
+        <div className="mb-4">
+          <span className="font-semibold">Email verificado:</span>
+          <div className="mt-1 text-gray-300">{currentUser?.emailVerified ? 'Sí' : 'No'}</div>
+        </div>
+        {currentUser?.photoURL && (
+          <div className="mb-4 flex flex-col items-center">
+            <span className="font-semibold">Avatar:</span>
+            <img src={currentUser.photoURL} alt="Avatar" className="mt-2 w-20 h-20 rounded-full border-2 border-indigo-500 shadow" />
+          </div>
+        )}
         <button
           onClick={handleLogout}
           className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition font-semibold shadow mt-6"
