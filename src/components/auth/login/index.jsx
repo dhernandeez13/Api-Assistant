@@ -23,7 +23,7 @@ const Login = () => {
       try {
         await doSignInWithEmailAndPassword(email, password);
       } catch (err) {
-        setErrorMessage("Correo o contraseña incorrectos. Intenta nuevamente.");
+        setErrorMessage("Error signing in. Please check your credentials.");
       } finally {
         setIsSigningIn(false);
       }
@@ -50,7 +50,7 @@ const Login = () => {
       try {
         await signInWithPopup(auth, provider);
       } catch (err) {
-        setErrorMessage("Error al iniciar sesión con GitHub");
+        setErrorMessage("Error signing in with GitHub. Please try again.");
       } finally {
         setIsSigningIn(false);
       }
@@ -62,17 +62,20 @@ const Login = () => {
       {userLoggedIn && <Navigate to={"/"} replace={true} />}
 
       <main className="w-full h-screen flex items-center justify-center overflow-hidden">
-        <div className="w-96 text-gray-600 space-y-5 p-6 shadow-xl border rounded-xl mt-0">
+        <div className="w-96 text-gray-700 dark:text-gray-200 space-y-5 p-6 rounded-xl mt-0
+          bg-white border border-gray-300 shadow-lg
+          dark:bg-gray-900 dark:border-gray-700 dark:shadow-xl
+          transition-colors duration-300">
           <div className="text-center">
             <div className="mt-2">
-              <h3 className="text-white/90 text-xl font-semibold sm:text-2xl">
+              <h3 className="text-gray-900 dark:text-white text-xl font-semibold sm:text-2xl">
                 Log In
               </h3>
             </div>
           </div>
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
-              <label className="text-sm text-gray-600 font-bold">Email</label>
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300">Email</label>
               <input
                 type="email"
                 autoComplete="email"
@@ -81,12 +84,13 @@ const Login = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="w-full mt-2 px-3 py-2 text-gray-600 bg-transparent outline-none border focus:border-gray-700 shadow-sm rounded-lg transition duration-300"
+                className="w-full mt-2 px-3 py-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:border-indigo-500 shadow-sm rounded-lg transition duration-300 placeholder-gray-400 dark:placeholder-gray-500"
+                placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label className="text-sm text-gray-600 font-bold">
+              <label className="text-sm font-bold text-gray-700 dark:text-gray-300">
                 Password
               </label>
               <input
@@ -97,12 +101,13 @@ const Login = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="w-full mt-2 px-3 py-2 text-gray-600 bg-transparent outline-none border focus:border-gray-700 shadow-sm rounded-lg transition duration-300"
+                className="w-full mt-2 px-3 py-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:border-indigo-500 shadow-sm rounded-lg transition duration-300 placeholder-gray-400 dark:placeholder-gray-500"
+                placeholder="Enter your password"
               />
             </div>
 
             {errorMessage && (
-              <span className="block text-center text-red-600 font-bold bg-red-100 border border-red-300 rounded p-2">
+              <span className="block text-center text-red-700 font-bold bg-red-100 border border-red-200 rounded p-2 dark:bg-red-900 dark:border-red-700 dark:text-red-200">
                 {errorMessage}
               </span>
             )}
@@ -110,34 +115,36 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSigningIn}
-              className={`w-full px-4 py-2 text-white font-medium rounded-lg ${
-                isSigningIn
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-gray-900 hover:bg-gray-800 hover:shadow-xl transition duration-500"
-              }`}
+              className={`w-full px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200
+                ${isSigningIn
+                  ? 'bg-gray-300 cursor-not-allowed'
+                  : 'bg-gray-950 hover:bg-gray-800 shadow-md hover:shadow-lg'}
+                dark:bg-gray-900 dark:hover:bg-gray-800 dark:shadow-xl`}
             >
               {isSigningIn ? "Signing In..." : "Sign In"}
             </button>
           </form>
-          <p className="text-center text-sm">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
-            <Link to={"/register"} className="hover:underline font-bold">
+            <Link
+              to={"/register"}
+              className="inline-block font-bold underline-offset-2 transition-colors duration-150
+                text-gray-700 hover:text-gray-600 focus:text-gray-500 
+                dark:text-indigo-400 dark:hover:text-indigo-300 dark:focus:text-indigo-200"
+            >
               Sign up
             </Link>
           </p>
           <div className="flex flex-row text-center w-full">
-            <div className="border-b-2 mb-2.5 mr-2 w-full"></div>
-            <div className="text-sm font-bold w-fit">OR</div>
-            <div className="border-b-2 mb-2.5 ml-2 w-full"></div>
+            <div className="border-b-2 mb-2.5 mr-2 w-full border-gray-200 dark:border-gray-700"></div>
+            <div className="text-sm font-bold w-fit text-gray-500 dark:text-gray-400">OR</div>
+            <div className="border-b-2 mb-2.5 ml-2 w-full border-gray-200 dark:border-gray-700"></div>
           </div>
           <button
             disabled={isSigningIn}
             onClick={onGoogleSignIn}
-            className={`w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium  ${
-              isSigningIn
-                ? "cursor-not-allowed"
-                : "hover:bg-gray-100 transition duration-300 active:bg-gray-100"
-            }`}
+            className={`w-full flex items-center justify-center gap-x-3 py-2.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 mt-2 transition duration-300
+              ${isSigningIn ? 'cursor-not-allowed opacity-70' : 'hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
             <svg
               className="w-5 h-5"
@@ -174,9 +181,8 @@ const Login = () => {
           <button
             disabled={isSigningIn}
             onClick={onGithubSignIn}
-            className={`w-full flex items-center justify-center gap-x-3 py-2.5 border-none rounded-lg text-sm font-medium mt-2 text-white bg-gradient-to-r from-[#6e40c9] via-[#8f5cf7] to-[#a084ee] shadow-lg transition duration-300 hover:brightness-110 active:scale-95 ${
-              isSigningIn ? "cursor-not-allowed opacity-70" : ""
-            }`}
+            className={`w-full flex items-center justify-center gap-x-3 py-2.5 border-none rounded-lg text-sm font-medium mt-2 text-white bg-gradient-to-r from-[#6e40c9] via-[#8f5cf7] to-[#a084ee] shadow-lg transition duration-300 hover:brightness-110 active:scale-95
+              ${isSigningIn ? 'cursor-not-allowed opacity-70' : ''}`}
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.931 0-1.31.468-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.984-.399 3.003-.404 1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .321.218.694.825.576C20.565 21.796 24 17.299 24 12c0-6.627-5.373-12-12-12z" />

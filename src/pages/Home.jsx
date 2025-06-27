@@ -8,12 +8,10 @@ function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Filtros
   const [language, setLanguage] = useState("");
   const [minStars, setMinStars] = useState(0);
   const [license, setLicense] = useState("");
 
-  // Paleta de colores para lenguajes
   const languageColors = {
     JavaScript: "#f7df1e",
     TypeScript: "#3178c6",
@@ -35,25 +33,20 @@ function Home() {
     Vue: "#41b883",
     ObjectiveC: "#438eff",
     Scala: "#c22d40",
-    // ...otros
   };
 
-  // Extraer temas únicos para filtro
   const topics = Array.from(
     new Set(apis.flatMap((api) => api.topics || []))
   ).sort();
 
-  // Extraer propietarios únicos para filtro
   const owners = Array.from(
     new Set(apis.map((api) => api.owner?.login).filter(Boolean))
   ).sort();
 
-  // Filtros adicionales
   const [topic, setTopic] = useState("");
   const [owner, setOwner] = useState("");
   const [recent, setRecent] = useState(false);
 
-  // Paginación API GitHub
   const [apiPage, setApiPage] = useState(1);
   const [totalApiResults, setTotalApiResults] = useState(0);
   const perPageApi = 60;
@@ -80,7 +73,11 @@ function Home() {
     if (loading) return;
     setLoading(true);
     try {
-      const { items, total } = await searchAPIs(searchQuery, apiPage, perPageApi);
+      const { items, total } = await searchAPIs(
+        searchQuery,
+        apiPage,
+        perPageApi
+      );
       setApis(items);
       setTotalApiResults(total);
       setError(null);
@@ -91,10 +88,8 @@ function Home() {
     }
   };
 
-  // Calcular el total de páginas reales de la API
   const totalApiPages = Math.ceil(totalApiResults / perPageApi);
 
-  // Extraer lenguajes y licencias únicos para los selectores
   const languages = Array.from(
     new Set(apis.map((api) => api.language).filter(Boolean))
   ).sort();
@@ -102,7 +97,6 @@ function Home() {
     new Set(apis.map((api) => api.license?.spdx_id).filter(Boolean))
   ).sort();
 
-  // Aplicar filtros visuales
   const filteredApis = apis.filter((api) => {
     const matchesLanguage = language ? api.language === language : true;
     const matchesStars = api.stargazers_count >= minStars;
@@ -111,7 +105,7 @@ function Home() {
     const matchesOwner = owner ? api.owner?.login === owner : true;
     const matchesRecent = recent
       ? Date.now() - new Date(api.updated_at) < 1000 * 60 * 60 * 24 * 30
-      : true; // 30 días
+      : true;
     return (
       matchesLanguage &&
       matchesStars &&
@@ -122,33 +116,30 @@ function Home() {
     );
   });
 
-  // Paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 18; // 3 columnas x 6 filas
+  const perPage = 18;
 
-  // Calcular los repositorios a mostrar en la página currentPage
   const paginatedApis = filteredApis.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
   const totalPages = Math.ceil(filteredApis.length / perPage);
 
-  // Resetear página al cambiar filtros o búsqueda
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, language, license, topic, owner, minStars, recent, apis]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
       <form
         onSubmit={handleSearch}
         className="flex flex-col sm:flex-row sm:max-w-xl sm:mx-auto sm:gap-0 gap-2 mb-6"
       >
-        <div className="flex w-full">
+        <div className="flex w-full bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-indigo-300 transition-all dark:bg-gray-800 dark:border-gray-700">
           <input
             type="text"
-            placeholder="Buscar APIs públicas..."
-            className="flex-1 px-4 py-2 rounded-l-lg border border-gray-700 bg-gray-800 text-white hover:bg-gray-700 hover:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-600 transition-colors duration-150"
+            placeholder="Search public APIs..."
+            className="flex-1 px-4 py-2 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -156,16 +147,15 @@ function Home() {
             type="submit"
             className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-r-lg hover:bg-gray-700 hover:border-gray-600 active:scale-95 transition-all duration-150"
           >
-            Buscar
+            Search
           </button>
         </div>
       </form>
-      {/* Filtros visuales debajo de la barra de búsqueda */}
       <div className="flex flex-wrap gap-2 mb-6 justify-center">
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800  transition-colors duration-150"
+          className="w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 "
         >
           <option value="">Language</option>
           {languages.map((lang) => (
@@ -173,8 +163,8 @@ function Home() {
               value={lang}
               key={lang}
               style={{
-                color: languageColors[lang] || "#fff",
-                background: "#222",
+                color: languageColors[lang] || "#222",
+                background: "#fff",
               }}
             >
               {lang}
@@ -184,7 +174,7 @@ function Home() {
         <select
           value={license}
           onChange={(e) => setLicense(e.target.value)}
-          className="w-46 px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800  transition-colors duration-150"
+          className="w-40 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800"
         >
           <option value="">License</option>
           {licenses.map((lic) => (
@@ -196,7 +186,7 @@ function Home() {
         <select
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="w-50 px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 transition-colors duration-150"
+          className="w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800"
         >
           <option value="">Topic</option>
           {topics.map((t) => (
@@ -208,7 +198,7 @@ function Home() {
       </div>
       {error && <div className="text-red-500 text-center mb-4">{error}</div>}
       {loading ? (
-        <div className="text-center text-gray-400">Cargando...</div>
+        <div className="text-center text-gray-400">Loading...</div>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -216,7 +206,7 @@ function Home() {
               <ApiCard api={api} key={api.id} />
             ))}
           </div>
-          {/* Paginación visual */}
+
           {totalPages > 1 && (
             <div className="flex justify-center mt-8 gap-2 flex-wrap">
               <button
@@ -224,7 +214,7 @@ function Home() {
                 disabled={currentPage === 1}
                 className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Anterior
+                Previous
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                 <button
@@ -232,7 +222,7 @@ function Home() {
                   onClick={() => setCurrentPage(n)}
                   className={`px-3 py-1 rounded border border-gray-700 mx-0.5 ${
                     n === currentPage
-                      ? "bg-indigo-600 text-white font-bold"
+                      ? "bg-gray-950/80 text-white font-bold"
                       : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                   }`}
                 >
@@ -240,18 +230,18 @@ function Home() {
                 </button>
               ))}
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Siguiente
+                Next
               </button>
             </div>
           )}
         </>
       )}
-      {/* Paginación de la API de GitHub */}
-      {/* Eliminada la paginación redundante de GitHub */}
     </div>
   );
 }
