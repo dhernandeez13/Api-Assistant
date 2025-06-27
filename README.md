@@ -18,7 +18,7 @@ Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña.
 Mostrar al usuario las APIs que ha consultado recientemente.
 
 - Modo oscuro/claro
-Opción para cambiar entre modo claro/oscuro o elegir colores.
+Opción para cambiar entre modo claro/oscuro o elegir colores. ✔️
 
 - Compartir APIs
 Botón para compartir una API por redes sociales o copiar enlace.
