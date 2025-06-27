@@ -2,39 +2,40 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import { useApiContext } from "../contexts/ApiContext";
 import { doSignOut } from "../firebase/auth";
+import ThemeToggle from "./ThemeToggle";
 
 function Navbar() {
   const navigate = useNavigate();
   const { userLoggedIn } = useAuth();
   const { favorites } = useApiContext();
   return (
-    <nav className="bg-gray-900 px-4 py-3 flex items-center justify-between shadow-md">
-      <div className="text-xl font-bold text-white">
+    <nav className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-4 py-3 flex items-center justify-between shadow-md transition-colors duration-300">
+      <div className="text-xl font-bold text-gray-900 dark:text-white">
         <Link to="/">API Assitant</Link>
       </div>
       <div className="flex gap-6 items-center">
         <Link
           to="/"
-          className="text-gray-300 hover:text-white transition-colors font-medium"
+          className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors font-medium"
         >
           Home
         </Link>
         <Link
           to="/favorites"
-          className="text-gray-300 hover:text-white transition-colors font-medium flex items-center gap-2"
+          className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors font-medium flex items-center gap-2"
         >
           Favorites
           {favorites.length > 0 && (
             <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-200 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-blue-300"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 dark:bg-sky-200 opacity-75"></span>
+              <span className="relative inline-flex size-3 rounded-full bg-blue-500 dark:bg-blue-300"></span>
             </span>
           )}
         </Link>
         {userLoggedIn ? (
           <Link
             to="/profile"
-            className="ml-4 flex items-center justify-center rounded-full bg-gray-800 hover:bg-blue-600 transition-colors w-10 h-10"
+            className="ml-4 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-600 transition-colors w-10 h-10"
             title="Perfil"
           >
             <svg
@@ -43,7 +44,7 @@ function Navbar() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-gray-900 dark:text-white"
             >
               <path
                 strokeLinecap="round"
@@ -56,7 +57,7 @@ function Navbar() {
           <>
             <Link
               to="/login"
-              className="ml-4 flex items-center justify-center rounded-full bg-gray-950 hover:bg-gray-950/70 transition-colors w-12 h-11"
+              className="ml-4 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-950 hover:bg-gray-400 dark:hover:bg-gray-950/70 transition-colors w-12 h-11"
               title="Iniciar sesión"
             >
               <svg
@@ -65,7 +66,7 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 text-white"
+                className="w-6 h-6 text-gray-900 dark:text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -76,6 +77,7 @@ function Navbar() {
             </Link>
           </>
         )}
+        <ThemeToggle />
       </div>
     </nav>
   );

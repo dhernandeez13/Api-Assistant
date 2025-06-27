@@ -11,7 +11,7 @@ function App() {
   return (
     <ApiProvider>
       <Navbar />
-      <main className="min-h-screen bg-gray-950">
+      <main className="min-h-screen w-full bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
