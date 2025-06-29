@@ -9,7 +9,7 @@ In development 💭​
 Tarea 27/06/2025 | Proximamente --->
 
 - Persistencia de favoritos en Firebase
-Que los favoritos se guarden en Firestore y se sincronicen entre dispositivos.
+Que los favoritos se guarden en Firestore y se sincronicen entre dispositivos. ✔️
 
 - Perfil editable
 Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña.
