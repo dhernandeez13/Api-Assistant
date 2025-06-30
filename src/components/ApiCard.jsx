@@ -4,7 +4,6 @@ import { useState } from "react"
 function ApiCard({ api }) {
     const { isFavorite, addToFavorites, removeFromFavorites } = useApiContext()
     const favorite = isFavorite(api.id)
-    const [showAdded, setShowAdded] = useState(false)
 
     function onFavoriteClick(e) {
         e.preventDefault()
@@ -12,8 +11,6 @@ function ApiCard({ api }) {
             removeFromFavorites(api.id)
         } else {
             addToFavorites(api)
-            setShowAdded(true)
-            setTimeout(() => setShowAdded(false), 1200)
         }
     }
 
@@ -62,11 +59,6 @@ function ApiCard({ api }) {
                     </span>
                 </div>
             </div>
-            {showAdded && (
-                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white px-7 py-3 rounded-full font-bold text-lg shadow-lg z-20 animate-fadeInOut pointer-events-none">
-                    ¡Añadido a favoritos!
-                </div>
-            )}
         </div>
     )
 }

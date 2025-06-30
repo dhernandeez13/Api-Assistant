@@ -1,8 +1,13 @@
 import { useApiContext } from "../contexts/ApiContext";
 import ApiCard from "../components/ApiCard";
+import { useEffect } from "react";
 
 function Favorites() {
-  const { favorites } = useApiContext();
+  const { favorites, setFavoritesReviewed } = useApiContext();
+
+  useEffect(() => {
+    setFavoritesReviewed();
+  }, [setFavoritesReviewed]);
 
   if (favorites && favorites.length > 0) {
     return (
