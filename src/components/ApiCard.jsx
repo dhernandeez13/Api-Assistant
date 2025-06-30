@@ -45,20 +45,39 @@ function ApiCard({ api }) {
                 </h3>
                 <p className="mb-2 text-gray-700 dark:text-gray-300 text-sm">{shortDescription}</p>
                 <div className="flex flex-wrap gap-4 mb-2 text-sm">
-                    <span title="Estrellas" className="flex items-center gap-1 text-yellow-500 dark:text-yellow-400">
-                        ⭐ {api.stargazers_count}
+                    <span title="Favorites" className="flex items-center gap-1 text-yellow-500 dark:text-yellow-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="feather feather-star">
+                            <path d="M12 .587l3.668 7.568L24 9.423l-6 5.847L19.335 24 12 19.897 4.665 24 6 15.27l-6-5.847 8.332-1.268z"/>
+                        </svg>
+                        {api.stargazers_count}
                     </span>
-                    <span title="Forks" className="flex items-center gap-1 text-green-600 dark:text-green-400">
-                        🍴 {api.forks_count}
+                    <span title="Forks" className="flex items-center gap- text-green-600 dark:text-green-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-git-branch">
+                            <circle cx="6" cy="6" r="3"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="6" r="3"/>
+                            <path d="M6 9v6a3 3 0 0 0 3 3h3"/>
+                            <line x1="18" y1="9" x2="18" y2="21"/>
+                        </svg>
+                        {api.forks_count}
                     </span>
-                    <span title="Issues abiertas" className="flex items-center gap-1 text-pink-500 dark:text-pink-400">
-                        🐞 {api.open_issues_count}
+                    <span title="Issues" className="flex items-center gap-1 text-pink-500 dark:text-pink-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M8 2.75a5.25 5.25 0 1 0 0 10.5A5.25 5.25 0 0 0 8 2.75ZM1.25 8a6.75 6.75 0 1 1 13.5 0A6.75 6.75 0 0 1 1.25 8Zm6.5-2.25a.75.75 0 0 1 1.5 0v3.5a.75.75 0 0 1-1.5 0v-3.5ZM8 11.25a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" fill="currentColor"/></svg>
+                        {api.open_issues_count}
                     </span>
-                    <span title="Lenguaje principal" className="flex items-center gap-1 text-blue-500 dark:text-blue-400">
-                        📝 {api.language || "Desconocido"}
+                    <span title="Language" className="flex items-center gap-1 text-blue-500 dark:text-blue-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-code">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                        {api.language || "Desconocido"}
                     </span>
-                    <span title="Propietario" className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                        👤 {api.owner?.login}
+                    <span title="User" className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        {api.owner?.login}
                     </span>
                 </div>
             </div>
