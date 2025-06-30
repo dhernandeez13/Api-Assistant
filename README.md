@@ -21,6 +21,4 @@ Mostrar al usuario las APIs que ha consultado recientemente.
 Opción para cambiar entre modo claro/oscuro o elegir colores. ✔️
 
 - Compartir APIs
-Botón para compartir una API por redes sociales o copiar enlace.
-
-- Internacionalización (i18n Español) 
+Botón para compartir una API por redes sociales o copiar enlace. ✔️
