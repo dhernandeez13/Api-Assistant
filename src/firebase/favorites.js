@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "./firebase";
 
 export async function addFavorite(uid, favApi) {
@@ -25,4 +25,11 @@ export async function getFavorites(uid) {
   } else {
     return [];
   }
+}
+
+export async function removeFavorite(uid, favApi) {
+  const docRef = doc(db, "favorites", uid);
+  await updateDoc(docRef, {
+    apis: arrayRemove(favApi)
+  });
 }

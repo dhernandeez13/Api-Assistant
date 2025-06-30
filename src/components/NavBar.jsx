@@ -7,7 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 function Navbar() {
   const navigate = useNavigate();
   const { userLoggedIn } = useAuth();
-  const { favorites } = useApiContext();
+  const { favorites, showFavoritesIndicator } = useApiContext();
   return (
     <nav className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-4 py-3 flex items-center justify-between shadow-md transition-colors duration-300">
       <div className="text-xl font-bold text-gray-900 dark:text-white">
@@ -25,7 +25,7 @@ function Navbar() {
           className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors font-medium flex items-center gap-2"
         >
           Favorites
-          {favorites.length > 0 && (
+          {showFavoritesIndicator && (
             <span className="relative flex size-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 dark:bg-sky-200 opacity-75"></span>
               <span className="relative inline-flex size-3 rounded-full bg-blue-500 dark:bg-blue-300"></span>
