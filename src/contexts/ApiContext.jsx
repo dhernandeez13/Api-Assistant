@@ -1,4 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { getFavorites, addFavorite } from "../firebase/favorites";
 
 const ApiContext = createContext();
 
@@ -6,26 +9,38 @@ export const useApiContext = () => useContext(ApiContext);
 
 export const ApiProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedFavs = localStorage.getItem("favorites");
-    if (storedFavs) setFavorites(JSON.parse(storedFavs));
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+    if (user) {
+      getFavorites(user.uid).then(setFavorites);
+    } else {
+      setFavorites([]);
+    }
+  }, [user]);
 
-  const addToFavorites = (api) => {
-    setFavorites((prev) => [...prev, api]);
+  const addToFavorites = async (api) => {
+    if (!user) return;
+    await addFavorite(user.uid, api);
+    setFavorites((prev) => {
+      if (prev.some((f) => f.id === api.id)) return prev;
+      return [...prev, api];
+    });
   };
 
-  const removeFromFavorites = (apiName) => {
-    setFavorites((prev) => prev.filter((api) => api.API !== apiName));
+  const removeFromFavorites = (apiId) => {
+    setFavorites((prev) => prev.filter((api) => api.id !== apiId));
   };
 
-  const isFavorite = (apiName) => {
-    return favorites.some((api) => api.API === apiName);
+  const isFavorite = (apiId) => {
+    return favorites.some((api) => api.id === apiId);
   };
 
   const value = {
