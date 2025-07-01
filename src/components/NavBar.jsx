@@ -3,13 +3,31 @@ import { useAuth } from "../contexts/authContext";
 import { useApiContext } from "../contexts/ApiContext";
 import { doSignOut } from "../firebase/auth";
 import ThemeToggle from "./ThemeToggle";
+import React, { useEffect, useState } from "react";
 
 function Navbar() {
   const navigate = useNavigate();
   const { userLoggedIn } = useAuth();
   const { favorites, showFavoritesIndicator } = useApiContext();
+
+  // Estado para saber si hay scroll
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-4 py-3 flex items-center justify-between shadow-md transition-colors duration-300">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between shadow-md transition-colors duration-300
+        ${scrolled ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-md" : "bg-white dark:bg-gray-900"}
+        text-gray-900 dark:text-white`
+      }
+    >
       <div className="text-xl font-bold text-gray-900 dark:text-white">
         <Link to="/">API Assitant</Link>
       </div>
