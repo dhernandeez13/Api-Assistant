@@ -18,11 +18,11 @@ const Profile = () => {
       <div className="relative flex flex-col items-center w-full max-w-md p-8 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
         {/* Avatar */}
         <div className="absolute -top-16 flex flex-col items-center">
-          <div className="w-32 h-32 rounded-full border-4 border-indigo-400 dark:border-indigo-600 shadow-lg bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
+          <div className="w-32 h-32 rounded-full border-4 border-gray-900 dark:border-white shadow-lg bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
             {currentUser?.photoURL ? (
               <img src={currentUser.photoURL} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <User size={64} className="text-indigo-400 dark:text-indigo-500" />
+              <User size={64} className="text-gray-500 dark:text-gray-300" />
             )}
           </div>
           <span className="mt-2 text-lg font-semibold text-gray-800 dark:text-gray-100">
@@ -30,11 +30,11 @@ const Profile = () => {
           </span>
         </div>
         <div className="h-20" />
-        <h2 className="text-3xl font-bold mb-8 text-center text-indigo-600 dark:text-indigo-400">My Profile</h2>
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-gray-200">My Profile</h2>
         <div className="w-full space-y-4">
           {/* Email */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            <Mail className="text-indigo-400 dark:text-indigo-500" size={22} />
+            <Mail className="text-gray-500 dark:text-gray-300" size={22} />
             <div>
               <span className="block text-xs text-gray-500 dark:text-gray-400 font-semibold">Email</span>
               <span className="block text-base text-gray-800 dark:text-gray-100">{currentUser?.email || '-'}</span>
@@ -42,7 +42,7 @@ const Profile = () => {
           </div>
           {/* Provider */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            <BadgeCheck className="text-indigo-400 dark:text-indigo-500" size={22} />
+            <BadgeCheck className="text-indigo-500 dark:text-indigo-400" size={22} />
             <div>
               <span className="block text-xs text-gray-500 dark:text-gray-400 font-semibold">Provider</span>
               <span className="block text-base text-gray-800 dark:text-gray-100">{currentUser?.providerData?.map((p) => p.providerId).join(', ') || '-'}</span>
@@ -50,7 +50,11 @@ const Profile = () => {
           </div>
           {/* Email verified */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-            <ShieldCheck className={`text-${currentUser?.emailVerified ? 'green' : 'red'}-400 dark:text-${currentUser?.emailVerified ? 'green' : 'red'}-500`} size={22} />
+            <ShieldCheck className={
+              currentUser?.emailVerified
+                ? "text-green-500 dark:text-green-400"
+                : "text-red-500 dark:text-red-400"
+            } size={22} />
             <div>
               <span className="block text-xs text-gray-500 dark:text-gray-400 font-semibold">Email verified</span>
               <span className={`block text-base font-semibold ${currentUser?.emailVerified ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>{currentUser?.emailVerified ? 'Yes' : 'No'}</span>
@@ -59,7 +63,7 @@ const Profile = () => {
         </div>
         <button
           onClick={handleLogout}
-          className="w-full bg-gradient-to-r from-red-500 via-pink-500 to-red-600 text-white py-2 rounded-xl hover:brightness-110 transition font-semibold shadow mt-10 text-lg"
+          className="w-full bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 text-white py-2 rounded-xl font-semibold shadow mt-10 text-lg transition-all duration-200 hover:scale-105 hover:shadow-2xl hover:from-gray-800 hover:via-gray-900 hover:to-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 active:scale-95"
         >
           Sign out
         </button>

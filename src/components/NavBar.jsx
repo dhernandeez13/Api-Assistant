@@ -10,7 +10,6 @@ function Navbar() {
   const { userLoggedIn } = useAuth();
   const { favorites, showFavoritesIndicator } = useApiContext();
 
-  // Estado para saber si hay scroll
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -53,8 +52,8 @@ function Navbar() {
         {userLoggedIn ? (
           <Link
             to="/profile"
-            className="ml-4 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-600 transition-colors w-10 h-10"
-            title="Perfil"
+            className="ml-4 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors w-10 h-10"
+            title="Profile"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

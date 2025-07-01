@@ -12,7 +12,7 @@ Tarea 27/06/2025 | Proximamente --->
 Que los favoritos se guarden en Firestore y se sincronicen entre dispositivos. ✔️
 
 - Perfil editable
-Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña.
+Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña. ✔️
 
 - Historial de APIs visitadas
 Mostrar al usuario las APIs que ha consultado recientemente.
