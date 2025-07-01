@@ -6,6 +6,7 @@ import Navbar from "./components/NavBar";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Profile from "./pages/Profile";
+import History from "./pages/History";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </main>
     </ApiProvider>

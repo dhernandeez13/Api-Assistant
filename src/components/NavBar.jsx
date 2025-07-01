@@ -4,6 +4,7 @@ import { useApiContext } from "../contexts/ApiContext";
 import { doSignOut } from "../firebase/auth";
 import ThemeToggle from "./ThemeToggle";
 import React, { useEffect, useState } from "react";
+import { Clock } from "lucide-react";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -48,6 +49,13 @@ function Navbar() {
               <span className="relative inline-flex size-3 rounded-full bg-blue-500 dark:bg-blue-300"></span>
             </span>
           )}
+        </Link>
+        <Link
+          to="/history"
+          className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors font-medium flex items-center gap-2"
+          title="API History"
+        >
+          <Clock className="w-5 h-5" />
         </Link>
         {userLoggedIn ? (
           <Link
