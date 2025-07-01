@@ -79,7 +79,23 @@ function ApiCard({ api }) {
             </div>
             <div className="p-4 flex-1 flex flex-col gap-2">
                 <h3 className="mb-1 text-base font-semibold text-gray-900 dark:text-white">
-                    <a href={api.html_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    <a 
+                        href={api.html_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="hover:underline"
+                        onClick={() => {
+                            // Guardar historial en localStorage
+                            try {
+                                const history = JSON.parse(localStorage.getItem('apiHistory') || '[]');
+                                // Evitar duplicados
+                                const filtered = history.filter(item => item.id !== api.id);
+                                filtered.unshift({ id: api.id, name: api.full_name, url: api.html_url, avatar: imageUrl });
+                                // Limitar a 20 elementos
+                                localStorage.setItem('apiHistory', JSON.stringify(filtered.slice(0, 20)));
+                            } catch (e) {}
+                        }}
+                    >
                         {api.full_name}
                     </a>
                 </h3>

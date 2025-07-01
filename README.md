@@ -15,7 +15,7 @@ Que los favoritos se guarden en Firestore y se sincronicen entre dispositivos. �
 Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña. ✔️
 
 - Historial de APIs visitadas
-Mostrar al usuario las APIs que ha consultado recientemente.
+Mostrar al usuario las APIs que ha consultado recientemente. ✔️
 
 - Modo oscuro/claro
 Opción para cambiar entre modo claro/oscuro o elegir colores. ✔️
