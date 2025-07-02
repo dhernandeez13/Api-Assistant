@@ -45,40 +45,6 @@ npm install
 npm run dev
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173) (default Vite port).
-
-## Project Structure
-
-```
-src/
-  components/
-    ApiCard.jsx
-    NavBar.jsx
-    ThemeToggle.jsx
-    auth/
-      login/
-        index.jsx
-      register/
-        index.jsx
-  pages/
-    Home.jsx
-    Favorites.jsx
-    History.jsx
-    Profile.jsx
-  contexts/
-    ApiContext.jsx
-    authContext/
-  firebase/
-    auth.js
-    firebase.js
-    favorites.js
-  services/
-    api.js
-  css/
-    index.css
-  assets/
-```
-
 ## Scripts
 
 - `npm run dev` — Start development server
