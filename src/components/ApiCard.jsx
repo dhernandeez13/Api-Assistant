@@ -19,12 +19,11 @@ function ApiCard({ api }) {
         e.preventDefault()
         const url = api.html_url
         const title = api.full_name
-        const text = api.description || "Mira esta API: " + title
+        const text = api.description || "Check this API: " + title
         if (navigator.share) {
             try {
                 await navigator.share({ title, text, url })
             } catch (err) {
-                // El usuario canceló o hubo error
             }
         } else {
             try {
@@ -32,7 +31,6 @@ function ApiCard({ api }) {
                 setCopied(true)
                 setTimeout(() => setCopied(false), 1200)
             } catch (err) {
-                // Error al copiar
             }
         }
     }

@@ -1,24 +1,99 @@
+🤖 **Api-Assistant** is a modern web application that allows you to discover, search, and save your favorite public APIs from GitHub. Instantly explore trending APIs, filter by keywords, and manage your personal list of favorites.
 
-# Api-Assistant
-🤖​ API Assistant is a modern web application that allows you to discover, search, and save your favorite public APIs from GitHub. Instantly explore trending APIs, filter by keywords, and manage your personal list of favorites.
+## Features
 
-In development 💭​
+- 🔍 **Search & Discover:** Find public APIs from GitHub with powerful search and filtering.
+- ⭐ **Favorites:** Save APIs to your personal favorites list.
+- 🕑 **History:** Quickly access your recently viewed APIs.
+- 🌓 **Dark/Light Theme:** Switch between light and dark mode.
+- 🔐 **Authentication:** Sign up and log in with email, Google, or GitHub.
+- 🧑 **Profile:** Manage your user profile and see your favorite APIs.
 
-### Private Borrador
+## Tech Stack
 
-Tarea 27/06/2025 | Proximamente --->
+- **React 19**
+- **Vite** (for fast development)
+- **Tailwind CSS** (for styling)
+- **Firebase** (authentication & storage)
+- **React Router v7**
+- **Lucide React** (icons)
 
-- Persistencia de favoritos en Firebase
-Que los favoritos se guarden en Firestore y se sincronicen entre dispositivos. ✔️
+## Getting Started
 
-- Perfil editable
-Permitir al usuario cambiar su nombre, foto y (si es posible) contraseña. ✔️
+### 1. Clone the repository
 
-- Historial de APIs visitadas
-Mostrar al usuario las APIs que ha consultado recientemente. ✔️
+```bash
+git clone https://github.com/your-username/Api-Assistant.git
+cd Api-Assistant
+```
 
-- Modo oscuro/claro
-Opción para cambiar entre modo claro/oscuro o elegir colores. ✔️
+### 2. Install dependencies
 
-- Compartir APIs
-Botón para compartir una API por redes sociales o copiar enlace. ✔️
+```bash
+npm install
+```
+
+### 3. Configure Firebase
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/).
+2. Enable **Authentication** (Email/Password, Google, GitHub).
+3. Copy your Firebase config and replace it in `src/firebase/firebase.js`.
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at [http://localhost:5173](http://localhost:5173) (default Vite port).
+
+## Project Structure
+
+```
+src/
+  components/
+    ApiCard.jsx
+    NavBar.jsx
+    ThemeToggle.jsx
+    auth/
+      login/
+        index.jsx
+      register/
+        index.jsx
+  pages/
+    Home.jsx
+    Favorites.jsx
+    History.jsx
+    Profile.jsx
+  contexts/
+    ApiContext.jsx
+    authContext/
+  firebase/
+    auth.js
+    firebase.js
+    favorites.js
+  services/
+    api.js
+  css/
+    index.css
+  assets/
+```
+
+## Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build
+- `npm run lint` — Lint the code
+
+## Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+**Api-Assistant** is in active development. Feel free to contribute or suggest features!
