@@ -106,7 +106,6 @@ function Home() {
     setCurrentPage(1);
   }, [searchQuery, language, license, topic, owner, minStars, recent, apis]);
 
-  // Función para asegurar contraste en ambos modos mejorada
   function getContrastColor(hex, isDark) {
     if (!hex) return isDark ? "#fff" : "#222";
     hex = hex.replace("#", "");
@@ -114,15 +113,11 @@ function Home() {
     const g = parseInt(hex.substring(2,4), 16);
     const b = parseInt(hex.substring(4,6), 16);
 
-    // Luminancia relativa
     const luminance = (0.2126*r + 0.7152*g + 0.0722*b) / 255;
 
-    // Fondo: 0 (negro) en dark, 1 (blanco) en light
     const bgLuminance = isDark ? 0 : 1;
-    // Contraste según WCAG
     const contrast = (Math.max(luminance, bgLuminance) + 0.05) / (Math.min(luminance, bgLuminance) + 0.05);
 
-    // Si el contraste es menor a 4.5, forzamos blanco o negro
     if (contrast < 4.5) {
       return isDark ? "#fff" : "#222";
     }
@@ -130,7 +125,7 @@ function Home() {
   }
 
   return (
-    <div className="p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
+    <div className="p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <form
         onSubmit={handleSearch}
         className="flex flex-col sm:flex-row sm:max-w-xl sm:mx-auto sm:gap-0 gap-2 mb-6"

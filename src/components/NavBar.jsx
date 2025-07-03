@@ -23,8 +23,8 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between shadow-md transition-colors duration-300
-        ${scrolled ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-md" : "bg-white dark:bg-gray-900"}
+      className={`fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between shadow-md
+        bg-white dark:bg-gray-900
         text-gray-900 dark:text-white`
       }
     >
