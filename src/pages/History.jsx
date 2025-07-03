@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 // Modern trash icon SVG
 const TrashIcon = ({ className }) => (
@@ -15,15 +17,21 @@ const TrashIcon = ({ className }) => (
 
 const History = () => {
   const [history, setHistory] = useState([]);
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userLoggedIn) {
+      navigate("/login");
+      return;
+    }
     try {
       const data = JSON.parse(localStorage.getItem("apiHistory") || "[]");
       setHistory(data);
     } catch (e) {
       setHistory([]);
     }
-  }, []);
+  }, [userLoggedIn, navigate]);
 
   const clearHistory = () => {
     localStorage.removeItem("apiHistory");

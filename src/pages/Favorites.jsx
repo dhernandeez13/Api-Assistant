@@ -1,13 +1,21 @@
 import { useApiContext } from "../contexts/ApiContext";
 import ApiCard from "../components/ApiCard";
 import { useEffect } from "react";
+import { useAuth } from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 function Favorites() {
   const { favorites, setFavoritesReviewed } = useApiContext();
+  const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userLoggedIn) {
+      navigate("/login");
+      return;
+    }
     setFavoritesReviewed();
-  }, [setFavoritesReviewed]);
+  }, [setFavoritesReviewed, userLoggedIn, navigate]);
 
   if (favorites && favorites.length > 0) {
     return (

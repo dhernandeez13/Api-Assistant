@@ -1,13 +1,21 @@
 import { useApiContext } from "../contexts/ApiContext"
 import { useState } from "react"
+import { useAuth } from "../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 function ApiCard({ api }) {
     const { isFavorite, addToFavorites, removeFromFavorites } = useApiContext()
     const favorite = isFavorite(api.id)
     const [copied, setCopied] = useState(false)
+    const { userLoggedIn } = useAuth();
+    const navigate = useNavigate();
 
     function onFavoriteClick(e) {
         e.preventDefault()
+        if (!userLoggedIn) {
+            navigate("/login");
+            return;
+        }
         if (favorite) {
             removeFromFavorites(api.id)
         } else {
