@@ -12,29 +12,6 @@ function Home() {
   const [minStars, setMinStars] = useState(0);
   const [license, setLicense] = useState("");
 
-  const languageColors = {
-    JavaScript: "#f7df1e",
-    TypeScript: "#3178c6",
-    Python: "#3572A5",
-    Go: "#00ADD8",
-    Java: "#b07219",
-    Ruby: "#701516",
-    PHP: "#4F5D95",
-    C: "#555555",
-    "C++": "#f34b7d",
-    "C#": "#178600",
-    Shell: "#89e051",
-    HTML: "#e34c26",
-    CSS: "#563d7c",
-    Swift: "#ffac45",
-    Kotlin: "#A97BFF",
-    Rust: "#dea584",
-    Dart: "#00B4AB",
-    Vue: "#41b883",
-    ObjectiveC: "#438eff",
-    Scala: "#c22d40",
-  };
-
   const topics = Array.from(
     new Set(apis.flatMap((api) => api.topics || []))
   ).sort();
@@ -129,6 +106,29 @@ function Home() {
     setCurrentPage(1);
   }, [searchQuery, language, license, topic, owner, minStars, recent, apis]);
 
+  // Función para asegurar contraste en ambos modos mejorada
+  function getContrastColor(hex, isDark) {
+    if (!hex) return isDark ? "#fff" : "#222";
+    hex = hex.replace("#", "");
+    const r = parseInt(hex.substring(0,2), 16);
+    const g = parseInt(hex.substring(2,4), 16);
+    const b = parseInt(hex.substring(4,6), 16);
+
+    // Luminancia relativa
+    const luminance = (0.2126*r + 0.7152*g + 0.0722*b) / 255;
+
+    // Fondo: 0 (negro) en dark, 1 (blanco) en light
+    const bgLuminance = isDark ? 0 : 1;
+    // Contraste según WCAG
+    const contrast = (Math.max(luminance, bgLuminance) + 0.05) / (Math.min(luminance, bgLuminance) + 0.05);
+
+    // Si el contraste es menor a 4.5, forzamos blanco o negro
+    if (contrast < 4.5) {
+      return isDark ? "#fff" : "#222";
+    }
+    return `#${hex}`;
+  }
+
   return (
     <div className="p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
       <form
@@ -162,10 +162,6 @@ function Home() {
             <option
               value={lang}
               key={lang}
-              style={{
-                color: languageColors[lang] || "#222",
-                background: "#fff",
-              }}
             >
               {lang}
             </option>
@@ -196,52 +192,47 @@ function Home() {
           ))}
         </select>
       </div>
-      {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-      {loading ? (
-        <div className="text-center text-gray-400">Loading...</div>
-      ) : (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {paginatedApis.map((api) => (
-              <ApiCard api={api} key={api.id} />
-            ))}
-          </div>
+      <>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {paginatedApis.map((api) => (
+            <ApiCard api={api} key={api.id} />
+          ))}
+        </div>
 
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-8 gap-2 flex-wrap">
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-8 gap-2 flex-wrap">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
               <button
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                key={n}
+                onClick={() => setCurrentPage(n)}
+                className={`px-3 py-1 rounded border border-gray-700 mx-0.5 ${
+                  n === currentPage
+                    ? "bg-gray-950/80 text-white font-bold"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                }`}
               >
-                Previous
+                {n}
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-                <button
-                  key={n}
-                  onClick={() => setCurrentPage(n)}
-                  className={`px-3 py-1 rounded border border-gray-700 mx-0.5 ${
-                    n === currentPage
-                      ? "bg-gray-950/80 text-white font-bold"
-                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
-                >
-                  {n}
-                </button>
-              ))}
-              <button
-                onClick={() =>
-                  setCurrentPage((p) => Math.min(totalPages, p + 1))
-                }
-                disabled={currentPage === totalPages}
-                className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </>
-      )}
+            ))}
+            <button
+              onClick={() =>
+                setCurrentPage((p) => Math.min(totalPages, p + 1))
+              }
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </>
     </div>
   );
 }
