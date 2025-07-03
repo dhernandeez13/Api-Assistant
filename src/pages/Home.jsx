@@ -36,7 +36,7 @@ function Home() {
         setApis(items);
         setTotalApiResults(total);
       } catch (err) {
-        setError("No se pudieron cargar las APIs...");
+        setError("Could not load APIs...");
       } finally {
         setLoading(false);
       }
@@ -59,7 +59,7 @@ function Home() {
       setTotalApiResults(total);
       setError(null);
     } catch (err) {
-      setError("No se pudieron buscar las APIs...");
+      setError("Could not search APIs...");
     } finally {
       setLoading(false);
     }
@@ -125,7 +125,7 @@ function Home() {
   }
 
   return (
-    <div className="p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <div className="p-2 sm:p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <form
         onSubmit={handleSearch}
         className="flex flex-col sm:flex-row sm:max-w-xl sm:mx-auto sm:gap-0 gap-2 mb-6"
@@ -150,7 +150,7 @@ function Home() {
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 "
+          className="w-full sm:w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 mb-2 sm:mb-0"
         >
           <option value="">Language</option>
           {languages.map((lang) => (
@@ -165,7 +165,7 @@ function Home() {
         <select
           value={license}
           onChange={(e) => setLicense(e.target.value)}
-          className="w-40 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800"
+          className="w-full sm:w-40 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800 mb-2 sm:mb-0"
         >
           <option value="">License</option>
           {licenses.map((lic) => (
@@ -177,7 +177,7 @@ function Home() {
         <select
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800"
+          className="w-full sm:w-50 px-4 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm transition-colors duration-150 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:ring-gray-800"
         >
           <option value="">Topic</option>
           {topics.map((t) => (
@@ -199,36 +199,28 @@ function Home() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold disabled:opacity-50"
             >
               Previous
             </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-              <button
-                key={n}
-                onClick={() => setCurrentPage(n)}
-                className={`px-3 py-1 rounded border border-gray-700 mx-0.5 ${
-                  n === currentPage
-                    ? "bg-gray-950/80 text-white font-bold"
-                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
+            <span className="px-4 py-2 text-gray-700 dark:text-gray-200">
+              Page {currentPage} of {totalPages}
+            </span>
             <button
-              onClick={() =>
-                setCurrentPage((p) => Math.min(totalPages, p + 1))
-              }
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="px-3 py-1 rounded bg-gray-800 border border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-semibold disabled:opacity-50"
             >
               Next
             </button>
           </div>
         )}
+        {error && (
+          <div className="mt-6 text-center text-red-500 font-semibold">{error}</div>
+        )}
       </>
     </div>
   );
 }
+
 export default Home;

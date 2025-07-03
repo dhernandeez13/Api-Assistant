@@ -15,8 +15,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-300">
-      <div className="relative flex flex-col items-center w-full max-w-md p-8 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
-        {/* Avatar */}
+      <div className="relative flex flex-col items-center w-full max-w-md p-2 sm:p-8 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="absolute -top-16 flex flex-col items-center">
           <div className="w-32 h-32 rounded-full border-4 border-gray-900 dark:border-white shadow-lg bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
             {currentUser?.photoURL ? (
@@ -32,7 +31,6 @@ const Profile = () => {
         <div className="h-20" />
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-gray-200">My Profile</h2>
         <div className="w-full space-y-4">
-          {/* Email */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <Mail className="text-gray-500 dark:text-gray-300" size={22} />
             <div>
@@ -40,7 +38,6 @@ const Profile = () => {
               <span className="block text-base text-gray-800 dark:text-gray-100">{currentUser?.email || '-'}</span>
             </div>
           </div>
-          {/* Provider */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <BadgeCheck className="text-indigo-500 dark:text-indigo-400" size={22} />
             <div>
@@ -48,7 +45,6 @@ const Profile = () => {
               <span className="block text-base text-gray-800 dark:text-gray-100">{currentUser?.providerData?.map((p) => p.providerId).join(', ') || '-'}</span>
             </div>
           </div>
-          {/* Email verified */}
           <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
             <ShieldCheck className={
               currentUser?.emailVerified
