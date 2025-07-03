@@ -19,7 +19,7 @@ function Favorites() {
 
   if (favorites && favorites.length > 0) {
     return (
-      <div className="p-4 pt-20 mt-10">
+      <div className="p-2 sm:p-4 pt-20 mt-10">
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
           Your Favorite APIs
         </h2>

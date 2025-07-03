@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/authContext";
 import { useNavigate } from "react-router-dom";
 
-// Modern trash icon SVG
 const TrashIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +38,8 @@ const History = () => {
   };
 
   return (
-    <div className="p-4 pt-20 mt-10 min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="p-2 sm:p-4 pt-20 mt-10 min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
       <div className="max-w-xl mx-auto relative">
-        {/* Contenedor centrado para el icono y el título */}
         <div className="relative mb-6">
           <h2 className="text-2xl font-bold text-center">API History</h2>
           <button
@@ -77,7 +75,6 @@ const History = () => {
           </ul>
         )}
       </div>
-      {/* Custom animation for pop-in */}
       <style>{`
         @keyframes pop-in {
           0% { opacity: 0; transform: scale(0.95) translateY(20px); }
