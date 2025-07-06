@@ -125,7 +125,7 @@ function Home() {
   }
 
   return (
-    <div className="p-2 sm:p-4 pt-20 mt-10 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <div className="p-2 sm:p-4 pt-20 mt-15 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <form
         onSubmit={handleSearch}
         className="flex flex-col sm:flex-row sm:max-w-xl sm:mx-auto sm:gap-0 gap-2 mb-6"

@@ -38,7 +38,7 @@ const History = () => {
   };
 
   return (
-    <div className="p-2 sm:p-4 pt-20 mt-10 min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="p-2 sm:p-4 pt-20 mt-16 min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
       <div className="max-w-xl mx-auto relative">
         <div className="relative mb-6">
           <h2 className="text-2xl font-bold text-center">API History</h2>
