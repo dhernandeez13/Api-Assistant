@@ -52,7 +52,7 @@ function ApiCard({ api }) {
     const imageUrl = api.owner?.avatar_url || "https://avatars.githubusercontent.com/u/9919?v=4";
 
     return (
-        <div className="relative rounded-lg overflow-hidden bg-white dark:bg-gray-900 shadow-lg flex flex-col h-full transition-transform duration-200 hover:-translate-y-1 transition-colors p-3 sm:p-4 text-sm sm:text-base">
+        <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-gray-900 shadow-lg flex flex-col h-full transition-transform duration-200 hover:-translate-y-1 transition-colors p-3 sm:p-4 text-sm sm:text-base">
             <div className="relative flex items-center justify-center h-40 sm:h-48 bg-gray-200 dark:bg-gray-800">
                 <img src={imageUrl} alt="avatar" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md" />
                 <div className="absolute top-3 right-3 flex gap-2 z-10">
